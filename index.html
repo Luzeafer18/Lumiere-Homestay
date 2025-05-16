@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumiere Homestay - Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Lumiere Homestay</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="products.html">Products</a>
+      <a href="booking.html">Booking</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>Welcome to Lumiere Homestay</h2>
+    <p>Beautiful homestay experience with cozy atmosphere.</p>
+    <div class="image-slider">
+      <!-- Placeholder for images you add later -->
+      <img src="images/photo1.jpg" alt="Homestay Photo 1" style="max-width:100%;border-radius:8px" />
+      <img src="images/photo2.jpg" alt="Homestay Photo 2" style="max-width:100%;border-radius:8px;display:none" />
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 Lumiere Homestay. All rights reserved.
+  </footer>
+
+  <script>
+    // Simple image slider logic
+    const images = document.querySelectorAll('.image-slider img');
+    let current = 0;
+    setInterval(() => {
+      images[current].style.display = 'none';
+      current = (current + 1) % images.length;
+      images[current].style.display = 'block';
+    }, 4000);
+  </script>
+</body>
+</html>
