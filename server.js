@@ -8,13 +8,24 @@ const db = new sqlite3.Database("./lumiere.db");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Serve static files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: "secretKeyForSession",
   resave: false,
   saveUninitialized: true,
 }));
+
+// Middleware: Protect all pages except login and static files
+app.use((req, res, next) => {
+  const publicPaths = ["/login.html", "/login", "/style.css"];
+  if (!req.session.user && !publicPaths.includes(req.path)) {
+    return res.redirect("/login.html");
+  }
+  next();
+});
 
 // Login endpoint
 app.post("/login", (req, res) => {
@@ -30,6 +41,13 @@ app.post("/login", (req, res) => {
   } else {
     res.json({ success: false, message: "Invalid username or password" });
   }
+});
+
+// Logout endpoint
+app.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/login.html");
+  });
 });
 
 // Booking submission endpoint
